@@ -1,5 +1,7 @@
-#!/bin/bash -eux
+#!/bin/bash
 GROUP=plextmp
+
+PLEX_ALLOWED_NET=${PLEX_ALLOWED_NET:-127.0.0.1\/255.255.255.255}
 
 mkdir -p /config/logs/supervisor
 chown -R plex: /config
@@ -25,6 +27,13 @@ usermod -a -G ${GROUP} plex
 if [ "${CHANGE_DIR_RIGHTS}" = true ]; then
   chgrp -R ${GROUP} /data
   chmod -R g+rX /data
+fi
+
+
+ALLOWED_NET_CONFIG=`grep -c allowedNet /config/Library/Application\ Support/Plex\ Media\ Server/Preferences.xml`
+
+if [[ $ALLOWED_NET_CONFIG == 0 ]] ; then
+  sed -e "s/AcceptedEULA=/allowedNet=\"$PLEX_ALLOWED_NET\" AcceptedEULA=/" /config/Library/Application\ Support/Plex\ Media\ Server/Preferences.xml -i
 fi
 
 # Current defaults to run as root while testing.
