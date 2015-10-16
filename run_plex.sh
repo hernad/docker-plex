@@ -26,4 +26,4 @@ docker run -d \
     -p 32400:32400  \
     -e PLEX_ALLOWED_NET="$PLEX_ALLOWED_NET" \
     --name $DOCKER_HOST.$DOCKER_DOMAIN \
-    plex-media-server
+    plex-media-server:latest
