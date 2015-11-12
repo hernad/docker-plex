@@ -18,9 +18,8 @@ RUN sudo apt-get update && sudo apt-get install -y supervisor ntp curl bind9util
 #    rm -rf /tmp/*
 
 # https://plex.tv/downloads
-https://downloads.plex.tv/plex-media-server/plexmediaserver_0.9.12.19.1537-f38ac80_amd64.deb
 
-ENV PLEX_VER=0.9.12.19.1537-f38ac80
+ENV PLEX_VER 0.9.12.19.1537-f38ac80
 RUN curl -LO https://downloads.plex.tv/plex-media-server/${PLEX_VER}/plexmediaserver_${PLEX_VER}_amd64.deb
 RUN dpkg -i plexmediaserver_${PLEX_VER}_amd64.deb
 
